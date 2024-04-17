@@ -23,4 +23,4 @@ mypi = pigpio.pi()
 
 while True:
     pinVal = input("Enter relay state: ")
-    mypi.write(relay_pin, pinVal) # turns relay on or off 
+    mypi.write(relay_pin, int(pinVal)) # turns relay on or off 
