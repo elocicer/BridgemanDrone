@@ -15,32 +15,40 @@ def init():
     return pins, mypi
 
 def connectMotorsPigpio(pins, relay_pin):
-    # Setup and connect motors.
     print("Connecting motors...")
-    
-    # Pins are as set on BOARD not by GPIO ordering.
-    
-    mypi = pigpio.pi()
+    '''
+    This function automatically performs the ESC calibration procedure. 
+    First, power is disconnected from the motors, and the ESC PWM signals are set to high.
+    Then, power is connected, and the ESC PWM signals are set to low.
+    At this point, the ESCs should beep 4 times (depending on the model) 
+    to indicate the motors are calibrated and armed.
+    The operator provides verification via keystroke to complete the procedure.
+    '''
 
-    mypi.write(relay_pin, 1) # turns on relay 
-
-    for pin in pins:
-        mypi.set_servo_pulsewidth(pin, 0)
-    
+    # Min and max pulsewidth values
     maxval = 1900
     minval = 1100
+
+    # Create rpi object
+    mypi = pigpio.pi()
     
-    input("Check that battery is disconnected from the base, then press enter.")
+    # Ensure relay is disconnected and ESCs are set to high
+    mypi.write(relay_pin, 0)
     for pin in pins:
-        mypi.set_servo_pulsewidth(pin, minval) # yellow ESCs can arm from minval
+        mypi.set_servo_pulsewidth(pin, maxval)
+    time.sleep(0.5)
         
-    input("Connect the battery. Press enter when done.")
+    # Connect relay
+    mypi.write(relay_pin, 1)
+    time.sleep(0.1)
     for pin in pins:
         mypi.set_servo_pulsewidth(pin, minval)
     print("4 beeps indicates drone is armed. Otherwise, needs callibration.")
     print("End arming sequence.\n\n")
     input("Press any key to continue.")
-    print("Starting program. To kill drone, kill the program using Ctrl+C.")
+
+    #
+    print("Starting program. To stop drone, press Ctrl+C.")
     time.sleep(3)
     return mypi
 
