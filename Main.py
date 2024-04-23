@@ -32,7 +32,7 @@ else:
 
 bno, mytracker, object_name = Sensors.init(calibrate)
 
-pins, mypi = ESC.init()
+pins, mypi, relay_pin = ESC.init()
 
 setpoint, state, cur_time, feedbackparams, PWMparams, filterparams, filter_states, yaw_looper, rawyaw, error = ctrl.init(bno, mytracker, object_name, CTRLR, error)
 
@@ -50,4 +50,4 @@ with open('data.csv', 'w', newline='') as myfile:
     except:
         pass
     
-ESC.StopMotors(mypi,pins)
+ESC.StopMotors(mypi,pins,relay_pin)

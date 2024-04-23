@@ -12,7 +12,7 @@ def init():
     pins = [21, 18, 4, 13] # using GPIO.BCM numbering
     mypi = connectMotorsPigpio(pins, relay_pin)
     print("Motors connected and callibrated!")
-    return pins, mypi
+    return pins, mypi, relay_pin
 
 def connectMotorsPigpio(pins, relay_pin):
     print("Connecting motors...")
@@ -57,7 +57,7 @@ def writeMotors(mypi,pins,inputs):
                 mypi.set_servo_pulsewidth(pins[i], inputs[i])
     return
 
-def StopMotors(mypi,pins):
+def StopMotors(mypi,pins,relay_pin):
     mypi.write(relay_pin, 0)
     for pin in pins:
         mypi.set_servo_pulsewidth(pin, 1100)

@@ -19,7 +19,7 @@ import ESC
 import Controller as ctrl
 
 
-pins, mypi = ESC.init()
+pins, mypi, relay_pin = ESC.init()
 
 # Controller loop.
 with open('data.csv', 'w', newline='') as myfile:
@@ -33,4 +33,4 @@ with open('data.csv', 'w', newline='') as myfile:
     except KeyboardInterrupt:
         pass
     
-ESC.StopMotors(mypi,pins)
+ESC.StopMotors(mypi,pins,relay_pin)
