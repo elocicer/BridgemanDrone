@@ -58,6 +58,7 @@ def writeMotors(mypi,pins,inputs):
     return
 
 def StopMotors(mypi,pins):
+    mypi.write(relay_pin, 0)
     for pin in pins:
         mypi.set_servo_pulsewidth(pin, 1100)
     print("Motors Stopped.")
