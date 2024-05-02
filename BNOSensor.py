@@ -8,7 +8,7 @@ import ESC
 from Adafruit_BNO055 import BNO055
 
 # Returns the states.
-def getStates(bno,mypi,pins):
+def getStates(bno,mypi,pins,relay_pin):
     try:
         yaw, roll, pitch = bno.read_euler()
         w_x, w_y, w_z = bno.read_gyroscope()
@@ -20,7 +20,7 @@ def getStates(bno,mypi,pins):
         w_y = w_y/360*2*pi
         w_z = w_z/360*2*pi
     except:
-        ESC.StopMotors(mypi,pins)
+        ESC.StopMotors(mypi,pins,relay_pin)
         print("IMU Disconnected. Setting motors to zero and terminating.")
         sys.exit()
     return yaw, roll, pitch, w_x, w_y, w_z, a_x, a_y, a_z

@@ -8,10 +8,10 @@ import Vicon
 import csv
 import sys
 
-def init(bno, mytracker, object_name, CTRLR, error):
+def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
     # Initial localization
     x, y, z = Vicon.GetLinearStates(mytracker, object_name, np.array([0,0,0]))
-    yaw, pitch, roll, dyaw, droll, dpitch, a_x, a_y, a_z = BNO.getStates(bno)
+    yaw, pitch, roll, dyaw, droll, dpitch, a_x, a_y, a_z = BNO.getStates(bno,mypi,pins,relay_pin)
     yaw_looper = 0
     rawyaw = yaw
     cur_time = time.time() 

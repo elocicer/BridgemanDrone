@@ -34,7 +34,7 @@ bno, mytracker, object_name = Sensors.init(calibrate)
 
 pins, mypi, relay_pin = ESC.init()
 
-setpoint, state, cur_time, feedbackparams, PWMparams, filterparams, filter_states, yaw_looper, rawyaw, error = ctrl.init(bno, mytracker, object_name, CTRLR, error)
+setpoint, state, cur_time, feedbackparams, PWMparams, filterparams, filter_states, yaw_looper, rawyaw, error = ctrl.init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin)
 
 if error:
     sys.exit()
