@@ -17,7 +17,7 @@ def init(calibrate):
     print("Sensor callibrated!\n\n")
     # Connect to Vicon
     vicon_client, mytracker = Vicon.connectVicon("192.168.0.101")
-    object_name = "LoCicero_RPI_Drone"
+    object_name = "BridgemanDrone"
     return bno, mytracker, object_name
 
 def getState(bno, mytracker, object_name, state, setpoint, cur_time, filter_states, Fp, yaw_looper, rawyaw_prev,mypi,pins):

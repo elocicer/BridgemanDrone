@@ -27,14 +27,16 @@ def getStates(bno,mypi,pins):
 
 # Connects the BNO and prints general information.
 def connectSensor(bno):
+    print(bno)
     # Enable verbose debug logging if -v is passed as a parameter.
     if len(sys.argv) == 2 and sys.argv[1].lower() == '-v':
         logging.basicConfig(level=logging.DEBUG)
     
     # Initialize the BNO055 and stop if something went wrong.
     if not bno.begin():
+        input('Missing bno.begin')
         raise RuntimeError('Failed to initialize BNO055! Is the sensor connected?')
-
+    input('Not missing bno.begin')
     # Print system status and self test result.
     status, self_test, error = bno.get_system_status()
     print('System status: {0}'.format(status))
