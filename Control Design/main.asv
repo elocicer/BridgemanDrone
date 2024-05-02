@@ -1,0 +1,42 @@
+close all
+clear
+
+%% Parameters
+p.g   = 9.81;       % gravitational constant, m/s^2
+p.m   = 0.9855;     % mass of drone, kg
+p.l   = .23;        % distance between rotor and center of mass of quadcopter
+p.Ixx = 0.013022;   % moment of inertia around x axis, kg*m^2
+p.Iyy = 0.012568;   % moment of inertia around y axis, kg*m^2
+p.Izz = 0.021489;   % moment of inertia around z axis, kg*m^2
+p.k   = 1.35e-7;    % lift constant, N/rpm
+p.b   = p.k;        % drag constant, N/rpm
+
+%% LQR Control Design
+xe = [0 0 3 0 0 0 0 0 0 0 0 0];         % State equilibrium
+u_num = sqrt(p.m*p.g/p.k)/4;            % Nominal force to offset gravity
+ue = 2*[u_num u_num u_num u_num];       % Control equilibrium
+[A,B] = linearize(xe, ue, p);           % Generate Linearized System Model
+Q = diag([1,1,1,1,1,1,1,1,1,1,1,1]);    % State Weight
+R = 0.000001.*eye(4);                   % Control Weight
+K = lqr(A,B,Q,R);                       % Feedback Matrix
+
+%% Simulations
+tspan = [0 10];                                     % time range
+x0 = xe + [-1 1 3 0 0 pi/2 0 0 0 0 0 0];            % initial conditions
+[t_lin, x_lin] = LinearSim(tspan, xe', x0', A,B,K); % linear simulation
+[t_nl, x_nl] = nlSim(x0',tspan,K,ue,xe,p);          % nonlinear simulation
+
+%% Plots
+figure(1)
+subplot(2,1,1)
+plot(t_lin,x_lin(1:6,:))
+title('Linear Simulation at Equilibrium')
+legend('x','y','z','phi','theta','gamma')
+subplot(2,1,2)
+plot(t_lin,K*x_lin(1))
+
+
+figure(2)
+plot(t_nl,x_nl(:,1:6))
+title('Nonlinear Simulation at Equilibrium')
+legend('x','y','z','phi','theta','gamma')
