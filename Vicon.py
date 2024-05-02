@@ -29,5 +29,3 @@ def GetLinearStates(tracker, object_name, prev_state):
         z = prev_state[2]
     return x, y, z
 
-
-    

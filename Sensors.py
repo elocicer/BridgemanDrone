@@ -20,9 +20,9 @@ def init(calibrate):
     object_name = "BridgemanDrone"
     return bno, mytracker, object_name
 
-def getState(bno, mytracker, object_name, state, setpoint, cur_time, filter_states, Fp, yaw_looper, rawyaw_prev,mypi,pins):
+def getState(bno, mytracker, object_name, state, setpoint, cur_time, filter_states, Fp, yaw_looper, rawyaw_prev, mypi, pins, relay_pin):
     rawx, rawy, rawz                                     = Vicon.GetLinearStates(mytracker, object_name, state[0:3])
-    rawyaw, pitch, roll, droll, dpitch, dyaw, a_x, a_y, a_z = BNO.getStates(bno,mypi,pins)
+    rawyaw, pitch, roll, droll, dpitch, dyaw, a_x, a_y, a_z = BNO.getStates(bno,mypi,pins,relay_pin)
     yaw, yaw_looper       = ctrl.RectifyYaw(rawyaw,rawyaw_prev,yaw_looper)
     prev_time = cur_time
     cur_time  = time.time()
