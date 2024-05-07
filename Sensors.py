@@ -27,13 +27,19 @@ def getState(bno, mytracker, object_name, state, setpoint, cur_time, filter_stat
     prev_time = cur_time
     cur_time  = time.time()
     dt        = cur_time - prev_time
-    x, filter_states[0]       = ctrl.FilterSignal(rawx, dt, filter_states[0], Fp["Tx"], Fp["Kx"])
-    y, filter_states[1]       = ctrl.FilterSignal(rawy, dt, filter_states[1], Fp["Ty"], Fp["Ky"])
-    z, filter_states[2]       = ctrl.FilterSignal(rawz, dt, filter_states[2], Fp["Tz"], Fp["Kz"])
+    #x, filter_states[0]       = ctrl.FilterSignal(rawx, dt, filter_states[0], Fp["Tx"], Fp["Kx"])
+    #y, filter_states[1]       = ctrl.FilterSignal(rawy, dt, filter_states[1], Fp["Ty"], Fp["Ky"])
+    #z, filter_states[2]       = ctrl.FilterSignal(rawz, dt, filter_states[2], Fp["Tz"], Fp["Kz"])
+    x = rawx
+    y = rawy
+    z = rawz
     rawdxdt, rawdydt, rawdzdt = ctrl.EstimateRates(x, y, z, dt, state[0:3])
-    dxdt, filter_states[3]    = ctrl.FilterSignal(rawdxdt, dt, filter_states[3], Fp["Tdx"], Fp["Kdx"])
-    dydt, filter_states[4]    = ctrl.FilterSignal(rawdydt, dt, filter_states[4], Fp["Tdy"], Fp["Kdy"])
-    dzdt, filter_states[5]    = ctrl.FilterSignal(rawdzdt, dt, filter_states[5], Fp["Tdz"], Fp["Kdz"])
+    #dxdt, filter_states[3]    = ctrl.FilterSignal(rawdxdt, dt, filter_states[3], Fp["Tdx"], Fp["Kdx"])
+    #dydt, filter_states[4]    = ctrl.FilterSignal(rawdydt, dt, filter_states[4], Fp["Tdy"], Fp["Kdy"])
+    #dzdt, filter_states[5]    = ctrl.FilterSignal(rawdzdt, dt, filter_states[5], Fp["Tdz"], Fp["Kdz"])
+    dxdt = rawdxdt
+    dydt = rawdydt
+    dzdt = rawdzdt
     state = np.array([[x],[y],[z],[roll],[pitch],[yaw],[dxdt],[dydt],[dzdt],[droll],[dpitch],[dyaw]])
     dx = state - setpoint
     return state, dx, cur_time, filter_states, yaw_looper, rawyaw
