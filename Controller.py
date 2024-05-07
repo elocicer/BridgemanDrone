@@ -92,8 +92,8 @@ def RectifyControl(PW):
     for index in range(4):
         if PW[index] > 1900:
             PW[index] = 1900
-        elif PW[index] < 1100:
-            PW[index] = 1100
+        elif PW[index] < 1110: # make it a little bit above zero so that the motor doesn't cut out entirely.
+            PW[index] = 1110
     return PW  
 
 def Speed2PW(w,p):
