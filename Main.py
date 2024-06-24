@@ -19,7 +19,7 @@ import functions.ESC as ESC
 import functions.Controller as ctrl
 
 calibrate = False
-CTRLR = "PD"
+CTRLR = "LQR"
 error = False
 if CTRLR == "LQR":
     from functions.Feedback import LQR as CalculateControlAction
