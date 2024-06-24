@@ -36,7 +36,6 @@ def connectSensor(bno):
     if not bno.begin():
         input('Missing bno.begin')
         raise RuntimeError('Failed to initialize BNO055! Is the sensor connected?')
-    input('Not missing bno.begin')
     # Print system status and self test result.
     status, self_test, error = bno.get_system_status()
     print('System status: {0}'.format(status))
