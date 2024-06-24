@@ -262,12 +262,37 @@ ylabel('angular velocity (rad/s)')
 set(gca,'FontSize',18)
 hold off
 
-saveas(fig_attitude,[fig_filename,'position',fig_filetime])
-saveas(fig_position,[fig_filename,'attitude',fig_filetime])
-saveas(fig_relattitude,[fig_filename,'relposition',fig_filetime])
-saveas(fig_relposition,[fig_filename,'relattitude',fig_filetime])
+fig_AttitudeAndControl = figure;
+title('Relative Attitude And Control')
+subplot(2,1,1)
+hold on
+plot(t_rel,deltaroll)
+plot(t_rel,deltapitch)
+plot(t_rel,deltayaw)
+legend('\Delta roll','\Delta pitch','\Delta yaw')
+xlabel('time (s)')
+ylabel('attitude (rad)')
+set(gca,'FontSize',18)
+hold off
+subplot(2,1,2)
+hold on
+plot(t_rel,u1)
+plot(t_rel,u2)
+plot(t_rel,u3)
+plot(t_rel,u4)
+legend('u1','u2','u3','u4')
+xlabel('time (s)')
+ylabel('pulsewidth (micro s)')
+set(gca,'FontSize',18)
+hold off
+
+saveas(fig_attitude,[fig_filename,'attitude',fig_filetime])
+saveas(fig_position,[fig_filename,'position',fig_filetime])
+saveas(fig_relattitude,[fig_filename,'relattitude',fig_filetime])
+saveas(fig_relposition,[fig_filename,'relposition',fig_filetime])
 saveas(fig_controls,[fig_filename,'controls',fig_filetime])
 saveas(fig_latency, [fig_filename,'latency' ,fig_filetime])
+saveas(fig_AttitudeAndControl,[fig_filename,'AttitudeAndControl',fig_filetime])
 
 
 
