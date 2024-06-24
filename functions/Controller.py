@@ -16,14 +16,14 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
     cur_time = time.time() 
     state = np.transpose(np.array([[x, y, z, roll, pitch, yaw, 0, 0, 0, droll, dpitch, dyaw]]))
     # Create Setpoint
-    target_height = .05 # 5cm
+    target_height = .05 # 5cm or 0.05m
     setpoint = np.transpose(np.array([[x, y, z+target_height, 0, 0, 0, 0, 0, 0, 0, 0, 0]])) #setting to zero roll pitch yaw
     # Initialize Vicon filter states and parameters
     filter_states = [x, y, z, 0, 0, 0]
     filterparams = {"Tx" : .1, "Ty" : .1, "Tz" : .1, "Tdx" : .25, "Tdy" : .25, "Tdz" : .25, 
                     "Kx" : 1,  "Ky" : 1,  "Kz" : 1,  "Kdx" : 1,   "Kdy" : 1,   "Kdz" : 1}
     # PWM motor parameters
-    PWMparams = {"vmax": 11.9, "RbkT": 1.29e-7 , "ke": 0.000656} 
+    PWMparams = {"vmax": 12.2, "RbkT": 1.29e-7 , "ke": 0.000656} 
     # Controller Parameters
     if CTRLR == "LQR":
         reader = csv.reader(open("ControlDesign/Controllers/LQRcontroller.csv", "r"), delimiter=",")
@@ -44,14 +44,14 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
             "K_dx"    : 0,
             "K_dy"    : 0,
             "K_dz"    : 0,
-            "K_roll"  : 1,
-            "K_pitch" : 1,
+            "K_roll"  : 10,
+            "K_pitch" : 10,
             "K_yaw"   : 0,
             "K_droll" : 0,
             "K_dpitch": 0,
             "K_dyaw"  : 0, 
-            "K_motor" : 1,
-            "mg"      : 1,
+            "K_motor" : 10,
+            "mg"      : 13.52, #1.3785kg*9.81m/s^2 = 13.52N (with mounting plate)
             "Gamma"   : np.linalg.inv(np.array([[k, k, k, k], [0, l*k, 0, -l*k], [l*k, 0, -l*k, 0], [-b, b, -b, b]])),
             "sinYawSet" : np.sin(setpoint[5])/9.81,
             "cosYawSet" : np.cos(setpoint[5])/9.81
