@@ -47,8 +47,8 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
             "K_roll"  : .75,
             "K_pitch" : .75,
             "K_yaw"   : 0,
-            "K_droll" : -.75,
-            "K_dpitch": -.75,
+            "K_droll" : -1.5,
+            "K_dpitch": -1.5,
             "K_dyaw"  : 0, 
             "K_motor" : 0,
             "mg"      : 13.52, #1.3785kg*9.81m/s^2 = 13.52N (with mounting plate)
