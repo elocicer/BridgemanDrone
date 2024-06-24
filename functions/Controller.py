@@ -52,7 +52,7 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
             "K_dyaw"  : 0, 
             "K_motor" : 1,
             "mg"      : 1,
-            "Gamma"   : np.linalg.inv(np.array([[k, k, k, k], [0, -l*k, 0, l*k], [-l*k, 0, l*k, 0], [b, -b, b, -b]])),
+            "Gamma"   : np.linalg.inv(np.array([[k, k, k, k], [0, l*k, 0, -l*k], [l*k, 0, -l*k, 0], [-b, b, -b, b]])),
             "sinYawSet" : np.sin(setpoint[5])/9.81,
             "cosYawSet" : np.cos(setpoint[5])/9.81
         }
