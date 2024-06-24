@@ -23,7 +23,7 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
     filterparams = {"Tx" : .1, "Ty" : .1, "Tz" : .1, "Tdx" : .25, "Tdy" : .25, "Tdz" : .25, 
                     "Kx" : 1,  "Ky" : 1,  "Kz" : 1,  "Kdx" : 1,   "Kdy" : 1,   "Kdz" : 1}
     # PWM motor parameters
-    PWMparams = {"vmax": 11.7, "RbkT": 1.29e-7 , "ke": 0.000656} 
+    PWMparams = {"vmax": 11.5, "RbkT": 1.29e-7 , "ke": 0.000656} 
     # Controller Parameters
     if CTRLR == "LQR":
         reader = csv.reader(open("ControlDesign/Controllers/LQRcontroller.csv", "r"), delimiter=",")
