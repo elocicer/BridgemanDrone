@@ -16,8 +16,8 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
     cur_time = time.time() 
     state = np.transpose(np.array([[x, y, z, roll, pitch, yaw, 0, 0, 0, droll, dpitch, dyaw]]))
     # Create Setpoint
-    target_height = .3
-    setpoint = np.transpose(np.array([[x, y, z+target_height, roll, pitch, yaw, 0, 0, 0, 0, 0, 0]]))
+    target_height = .05 # 5cm
+    setpoint = np.transpose(np.array([[x, y, z+target_height, 0, 0, 0, 0, 0, 0, 0, 0, 0]])) #setting to zero roll pitch yaw
     # Initialize Vicon filter states and parameters
     filter_states = [x, y, z, 0, 0, 0]
     filterparams = {"Tx" : .1, "Ty" : .1, "Tz" : .1, "Tdx" : .25, "Tdy" : .25, "Tdz" : .25, 
