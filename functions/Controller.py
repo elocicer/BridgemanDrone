@@ -45,7 +45,7 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
             "K_dy"    : 0,
             "K_dz"    : 0,
             "K_roll"  : .75,
-            "K_pitch" : .75,
+            "K_pitch" : 0,
             "K_yaw"   : 0,
             "K_droll" : 0,
             "K_dpitch": 0,
