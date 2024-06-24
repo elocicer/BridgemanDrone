@@ -17,7 +17,7 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
     state = np.transpose(np.array([[x, y, z, roll, pitch, yaw, 0, 0, 0, droll, dpitch, dyaw]]))
     # Create Setpoint
     target_height = .05 # 5cm or 0.05m
-    setpoint = np.transpose(np.array([[x, y, z+target_height, 0, 0, 0, 0, 0, 0, 0, 0, 0]])) #setting to zero roll pitch yaw
+    setpoint = np.transpose(np.array([[x, y, z+target_height, 0, 0, yaw, 0, 0, 0, 0, 0, 0]])) #setting to zero roll pitch yaw
     # Initialize Vicon filter states and parameters
     filter_states = [x, y, z, 0, 0, 0]
     filterparams = {"Tx" : .1, "Ty" : .1, "Tz" : .1, "Tdx" : .25, "Tdy" : .25, "Tdz" : .25, 
@@ -46,9 +46,9 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
             "K_dz"    : 0,
             "K_roll"  : .75,
             "K_pitch" : .75,
-            "K_yaw"   : 0,
-            "K_droll" : -1.5,
-            "K_dpitch": -1.5,
+            "K_yaw"   : .5,
+            "K_droll" : 0,
+            "K_dpitch": 0,
             "K_dyaw"  : 0, 
             "K_motor" : 0,
             "mg"      : 13.52, #1.3785kg*9.81m/s^2 = 13.52N (with mounting plate)
