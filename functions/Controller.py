@@ -46,10 +46,10 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
             "K_dz"    : 0,
             "K_roll"  : .75,
             "K_pitch" : .75,
-            "K_yaw"   : -.5,
+            "K_yaw"   : .5,
             "K_droll" : .25,
             "K_dpitch": .25,
-            "K_dyaw"  : -.1, 
+            "K_dyaw"  : .1, 
             "K_motor" : 0,
             "mg"      : 13.52, #1.3785kg*9.81m/s^2 = 13.52N (with mounting plate)
             "Gamma"   : np.linalg.inv(np.array([[k, k, k, k], [0, l*k, 0, -l*k], [l*k, 0, -l*k, 0], [-b, b, -b, b]])),
