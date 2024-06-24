@@ -13,12 +13,12 @@ def getStates(bno,mypi,pins,relay_pin):
         yaw, roll, pitch = bno.read_euler()
         w_x, w_y, w_z = bno.read_gyroscope()
         a_x, a_y, a_z = bno.read_accelerometer()
-        yaw = yaw/360*2*pi
-        roll = roll/360*2*pi
-        pitch = pitch/360*2*pi
-        w_x = w_x/360*2*pi
-        w_y = w_y/360*2*pi
-        w_z = w_z/360*2*pi
+        yaw = -yaw/360*2*pi
+        roll = -roll/360*2*pi
+        pitch = -pitch/360*2*pi
+        w_x = -w_x/360*2*pi
+        w_y = -w_y/360*2*pi
+        w_z = -w_z/360*2*pi
     except:
         ESC.StopMotors(mypi,pins,relay_pin)
         print("IMU Disconnected. Setting motors to zero and terminating.")
