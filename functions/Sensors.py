@@ -1,8 +1,8 @@
 from Adafruit_BNO055 import BNO055
-import BNOSensor as BNO
-import Vicon
+import functions.BNOSensor as BNO
+import functions.Vicon as Vicon
 import time
-import Controller as ctrl
+import functions.Controller as ctrl
 import numpy as np
 
 # CONNECT AND CALLIBRATE

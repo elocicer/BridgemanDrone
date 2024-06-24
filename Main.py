@@ -2,9 +2,9 @@
 # Ethan LoCicero and Alex Penne
 
 # Import libraries
+import sys
 import numpy as np
 import logging
-import sys
 import time
 import subprocess
 import csv
@@ -12,19 +12,19 @@ import RPi.GPIO as GPIO
 import pigpio as pigpio
 from Adafruit_BNO055 import BNO055
 # Import functions
-import Sensors
-import BNOSensor as BNO
-import Vicon
-import ESC
-import Controller as ctrl
+import functions.Sensors as Sensors
+import functions.BNOSensor as BNO
+import functions.Vicon as Vicon
+import functions.ESC as ESC
+import functions.Controller as ctrl
 
 calibrate = False
 CTRLR = "PD"
 error = False
 if CTRLR == "LQR":
-    from Feedback import LQR as CalculateControlAction
+    from functions.Feedback import LQR as CalculateControlAction
 elif CTRLR ==  "PD":
-    from Feedback import PD as CalculateControlAction
+    from functions.Feedback import PD as CalculateControlAction
 else:
     print("Ill-defined controller. Terminating program")
     sys.exit

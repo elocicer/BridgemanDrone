@@ -3,10 +3,9 @@ import numpy as np
 import logging
 import sys
 import time
-import BNOSensor as BNO
-import Vicon
 import csv
-import sys
+import functions.BNOSensor as BNO
+import functions.Vicon as Vicon
 
 def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
     # Initial localization

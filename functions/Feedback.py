@@ -1,6 +1,6 @@
 import numpy as np
-import Controller as ctrl
-import ESC
+import functions.Controller as ctrl
+import functions.ESC as ESC
 import sys
 
 def LQR(dx, FBp, PWMp, mypi, pins):

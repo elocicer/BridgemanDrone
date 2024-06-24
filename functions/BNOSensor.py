@@ -3,7 +3,7 @@ from math import pi
 import sys
 import time
 import RPi.GPIO as GPIO
-import ESC 
+import functions.ESC as ESC
 
 from Adafruit_BNO055 import BNO055
 
