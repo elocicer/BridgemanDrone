@@ -3,10 +3,10 @@ import functions.Controller as ctrl
 import functions.ESC as ESC
 import sys
 
-def LQR(dx, FBp, PWMp, mypi, pins):
+def LQR(dx, v_battery, FBp, PWMp, mypi, pins):
     try:
         u = FBp["ue"] - np.matmul(FBp["K"],dx)
-        PW = ctrl.Speed2PW(u,PWMp)
+        PW = ctrl.Speed2PW(u,v_battery,PWMp)
         PW = ctrl.RectifyControl(PW)
     except:
         ESC.StopMotors(mypi,pins)
@@ -14,7 +14,7 @@ def LQR(dx, FBp, PWMp, mypi, pins):
         sys.exit()
     return PW
 
-def PD(dx, FBp, PWMp, mypi, pins):
+def PD(dx, v_battery, FBp, PWMp, mypi, pins):
     # based on Mahony2012 in IEEE Magazine
     try:
         #ddx_com = -FBp["K_x"]*dx[0] - FBp["K_dx"]*dx[6]
@@ -31,7 +31,7 @@ def PD(dx, FBp, PWMp, mypi, pins):
         wsquared = np.matmul(FBp["Gamma"],Tau)
         wsquared[wsquared < 0] = 0
         w = np.sqrt(wsquared)
-        PW = ctrl.Speed2PW(w,PWMp)
+        PW = ctrl.Speed2PW(w,v_battery,PWMp)
         PW = ctrl.RectifyControl(PW)
     except:
         ESC.StopMotors(mypi,pins)

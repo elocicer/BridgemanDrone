@@ -18,6 +18,7 @@ import functions.Vicon as Vicon
 import functions.ESC as ESC
 import functions.Controller as ctrl
 
+
 calibrate = False
 CTRLR = "PD"
 error = False
@@ -30,7 +31,7 @@ else:
     sys.exit
 
 
-bno, mytracker, object_name = Sensors.init(calibrate)
+bno, mytracker, object_name, VoltageDivider = Sensors.init(calibrate)
 
 pins, mypi, relay_pin = ESC.init()
 
@@ -42,10 +43,10 @@ if error:
 with open('data.csv', 'w', newline='') as myfile:
     try:
         while True:
-            state, dx, cur_time, filter_states, yaw_looper, rawyaw = Sensors.getState(bno, mytracker, object_name, state, setpoint, cur_time, filter_states, filterparams, yaw_looper,rawyaw,mypi,pins,relay_pin)
-            inputs          = CalculateControlAction(dx, feedbackparams, PWMparams, mypi, pins)
+            state, dx, v_battery, cur_time, filter_states, yaw_looper, rawyaw = Sensors.getState(bno, mytracker, object_name, state, setpoint, cur_time, filter_states, filterparams, yaw_looper,rawyaw,mypi,pins,relay_pin,VoltageDivider,PWMparams)
+            inputs          = CalculateControlAction(dx, v_battery, feedbackparams, PWMparams, mypi, pins)
             ESC.writeMotors(mypi,pins,inputs)
-            ctrl.SaveData(myfile, cur_time, state, inputs, dx, yaw_looper, rawyaw)
+            ctrl.SaveData(myfile, cur_time, state, inputs, dx, yaw_looper, rawyaw, v_battery)
     except:
         pass
     

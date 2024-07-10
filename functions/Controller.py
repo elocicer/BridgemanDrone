@@ -23,7 +23,7 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
     filterparams = {"Tx" : .1, "Ty" : .1, "Tz" : .1, "Tdx" : .25, "Tdy" : .25, "Tdz" : .25, 
                     "Kx" : 1,  "Ky" : 1,  "Kz" : 1,  "Kdx" : 1,   "Kdy" : 1,   "Kdz" : 1}
     # PWM motor parameters
-    PWMparams = {"vmax": 11.5, "RbkT": 1.29e-7 , "ke": 0.000656} 
+    PWMparams = {"vDividerRatio": 0.43, "RbkT": 1.29e-7 , "ke": 0.000656} 
     # Controller Parameters
     if CTRLR == "LQR":
         reader = csv.reader(open("ControlDesign/Controllers/LQRcontroller.csv", "r"), delimiter=",")
@@ -95,8 +95,8 @@ def RectifyControl(PW):
             PW[index] = 1110
     return PW  
 
-def Speed2PW(w,p):
-    PW = 800/p["vmax"]*(p["RbkT"]*np.power(w,2) + p["ke"]*w) + 1100
+def Speed2PW(w,v_battery,p):
+    PW = 800/v_battery*(p["RbkT"]*np.power(w,2) + p["ke"]*w) + 1100
     return PW
 
 

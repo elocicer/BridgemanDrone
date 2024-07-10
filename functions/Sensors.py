@@ -8,6 +8,10 @@ import numpy as np
 # CONNECT AND CALLIBRATE
 def init(calibrate):
     # Raspberry Pi configuration with serial UART and RST connected to GPIO 18: UART mode must be turned on (PS1 pin = HIGH).
+    # Connect to Voltage Divider
+    i2c = busio.I2C(board.SCL,board.SDA)
+    ads = ADS.ADS1115(i2c)
+    VoltageDivider = AnalogIn(ads,ADS.P0)
     # Connect to IMU.
     bno = BNO055.BNO055(serial_port='/dev/serial0', rst=18)
     BNO.connectSensor(bno)
@@ -18,9 +22,9 @@ def init(calibrate):
     # Connect to Vicon
     vicon_client, mytracker = Vicon.connectVicon("192.168.0.101")
     object_name = "BridgemanDrone"
-    return bno, mytracker, object_name
+    return bno, mytracker, object_name, VoltageDivider
 
-def getState(bno, mytracker, object_name, state, setpoint, cur_time, filter_states, Fp, yaw_looper, rawyaw_prev, mypi, pins, relay_pin):
+def getState(bno, mytracker, object_name, state, setpoint, cur_time, filter_states, Fp, yaw_looper, rawyaw_prev, mypi, pins, relay_pin, VoltageDivider,PWMp):
     rawx, rawy, rawz                                     = Vicon.GetLinearStates(mytracker, object_name, state[0:3])
     rawyaw, pitch, roll, droll, dpitch, dyaw, a_x, a_y, a_z = BNO.getStates(bno,mypi,pins,relay_pin)
     yaw, yaw_looper       = ctrl.RectifyYaw(rawyaw,rawyaw_prev,yaw_looper)
@@ -42,4 +46,5 @@ def getState(bno, mytracker, object_name, state, setpoint, cur_time, filter_stat
     dzdt = rawdzdt
     state = np.array([[x],[y],[z],[roll],[pitch],[yaw],[dxdt],[dydt],[dzdt],[droll],[dpitch],[dyaw]])
     dx = state - setpoint
-    return state, dx, cur_time, filter_states, yaw_looper, rawyaw
+    v_battery = VoltageDivider.voltage * PWMp["vDividerRatio"]
+    return state, dx, v_battery, cur_time, filter_states, yaw_looper, rawyaw

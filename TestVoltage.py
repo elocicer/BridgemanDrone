@@ -24,7 +24,7 @@ import adafruit_ads1x15.ads1115 as ADS
 from adafruit_ads1x15.analog_in import AnalogIn
 
 R1 = 13.3 #kOhm
-R2 = 10 #kOhm
+R2 = 10.6 #kOhm
 i2c = busio.I2C(board.SCL,board.SDA)
 ads = ADS.ADS1115(i2c)
 channel = AnalogIn(ads,ADS.P0)
