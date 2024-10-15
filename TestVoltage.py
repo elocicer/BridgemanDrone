@@ -27,6 +27,7 @@ R1 = 13.3 #kOhm
 R2 = 10.6 #kOhm
 i2c = busio.I2C(board.SCL,board.SDA)
 ads = ADS.ADS1115(i2c)
-channel = AnalogIn(ads,ADS.P0)
-v_battery = channel.voltage * ((R1+R2)/R2)
-print(f"Battery Voltage: {v_battery:2.2f}V")
+channel = AnalogIn(ads,ADS.P1)
+v_channel = channel.voltage
+v_battery = v_channel * ((R1+R2)/R2)
+print(f"Channel Voltage: {v_channel:2.2f}V")
