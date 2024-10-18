@@ -29,7 +29,7 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
         reader = csv.reader(open("ControlDesign/Controllers/LQRcontroller.csv", "r"), delimiter=",")
         K = list(reader)
         K = np.array(K).astype("float")
-       	feedbackparams = {
+        feedbackparams = {
        	    "K": K,
             "ue": np.transpose(4414.91*np.array([[1,1,1,1]]))
         }
@@ -84,7 +84,7 @@ def RectifyYaw(yaw,prev_yaw,yaw_looper):
 
 def SaveData(myfile, cur_time, state, inputs, dx, yaw_looper, rawyaw, v_battery):
     print("made it 1")
-    save_vec = np.transpose(np.concatenate((np.array([[cur_time]]), state, inputs, dx, np.array([[yaw_looper]]), np.array([[rawyaw]])), np.array([[v_battery]]), axis=0))
+    save_vec = np.transpose(np.concatenate((np.array([[cur_time]]), state, inputs, dx, np.array([[yaw_looper]]), np.array([[rawyaw]]), np.array([[v_battery]])), axis=0))
     print("made it 2")
     np.savetxt(myfile, save_vec, delimiter=',', fmt='%f')
     print("made it 3")
