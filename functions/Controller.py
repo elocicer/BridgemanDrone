@@ -82,9 +82,12 @@ def RectifyYaw(yaw,prev_yaw,yaw_looper):
     yaw = yaw + yaw_looper
     return yaw, yaw_looper 
 
-def SaveData(myfile, cur_time, state, inputs, dx, yaw_looper, rawyaw):
-    save_vec = np.transpose(np.concatenate((np.array([[cur_time]]), state, inputs, dx, np.array([[yaw_looper]]), np.array([[rawyaw]])),axis=0))
+def SaveData(myfile, cur_time, state, inputs, dx, yaw_looper, rawyaw, v_battery):
+    print("made it 1")
+    save_vec = np.transpose(np.concatenate((np.array([[cur_time]]), state, inputs, dx, np.array([[yaw_looper]]), np.array([[rawyaw]])), np.array([[v_battery]]), axis=0))
+    print("made it 2")
     np.savetxt(myfile, save_vec, delimiter=',', fmt='%f')
+    print("made it 3")
     return 
 
 def RectifyControl(PW):

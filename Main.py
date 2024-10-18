@@ -48,7 +48,7 @@ if error: # check the controller is well defined
 with open('data.csv', 'w', newline='') as myfile:
     try:
         v_battery = 12.6
-        while v_battery > 10.0:
+        while True: #v_battery > 10.0:
             # Get states
             state, dx, v_battery, cur_time, filter_states, yaw_looper, rawyaw = Sensors.getState(bno, mytracker, object_name, state, setpoint, cur_time, filter_states, filterparams, yaw_looper, rawyaw, mypi, pins, relay_pin, ADS1115)
             # Calculate inputs
