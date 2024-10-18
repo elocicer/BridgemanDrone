@@ -21,8 +21,8 @@ def PD(dx, v_battery, FBp, PWMp, mypi, pins):
         #ddy_com = -FBp["K_y"]*dx[1] - FBp["K_dy"]*dx[7]
         roll_com  = -.08 #ddx_com*FBp["sinYawSet"] - ddy_com*FBp["cosYawSet"]
         pitch_com = -.04 #ddx_com*FBp["cosYawSet"] + ddy_com*FBp["sinYawSet"]
-        Delta_roll  = dx[3] - roll_com  # this should work only if roll setpoint is 0 in initialization (or rather, roll bias)
-        Delta_pitch = dx[4] - pitch_com # this should work only if pitch setpoint is 0 in initialization (or rather, pitch bias)
+        Delta_roll  = dx[3] - roll_com
+        Delta_pitch = dx[4] - pitch_com
         lift = FBp["mg"] - FBp["K_z"]*dx[2] - FBp["K_dz"]*dx[8]
         tau1 = FBp["K_roll"]*Delta_roll + FBp["K_droll"]*dx[9]
         tau2 = FBp["K_pitch"]*Delta_pitch + FBp["K_dpitch"]*dx[10]
