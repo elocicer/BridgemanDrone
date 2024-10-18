@@ -31,7 +31,7 @@ else:
     sys.exit
 
 
-bno, mytracker, object_name, VoltageDivider = Sensors.init(calibrate)
+bno, mytracker, object_name, ADS1115 = Sensors.init(calibrate)
 
 pins, mypi, relay_pin = ESC.init()
 
@@ -43,7 +43,7 @@ if error:
 with open('data.csv', 'w', newline='') as myfile:
     try:
         while True:
-            state, dx, v_battery, cur_time, filter_states, yaw_looper, rawyaw = Sensors.getState(bno, mytracker, object_name, state, setpoint, cur_time, filter_states, filterparams, yaw_looper,rawyaw,mypi,pins,relay_pin,VoltageDivider,PWMparams)
+            state, dx, v_battery, cur_time, filter_states, yaw_looper, rawyaw = Sensors.getState(bno, mytracker, object_name, state, setpoint, cur_time, filter_states, filterparams, yaw_looper,rawyaw,mypi,pins,relay_pin,ADS1115)
             inputs          = CalculateControlAction(dx, v_battery, feedbackparams, PWMparams, mypi, pins)
             ESC.writeMotors(mypi,pins,inputs)
             ctrl.SaveData(myfile, cur_time, state, inputs, dx, yaw_looper, rawyaw, v_battery)
