@@ -56,9 +56,6 @@ def getState(bno, mytracker, object_name, state, setpoint, cur_time, filter_stat
     dxdt = rawdxdt
     dydt = rawdydt
     dzdt = rawdzdt
-    # Compile states as array
-    state = np.array([[x],[y],[z],[roll],[pitch],[yaw],[dxdt],[dydt],[dzdt],[droll],[dpitch],[dyaw]])
-    dx = state - setpoint
     # Read battery voltage
     data = ADS1115["bus"].read_i2c_block_data(ADS1115["address"],ADS1115["conversion_register"],2)
     raw_adc = data[0] << 8 | data[1] # read the first 16 bits and concatinate them
@@ -66,4 +63,7 @@ def getState(bno, mytracker, object_name, state, setpoint, cur_time, filter_stat
          raw_adc -= 65536 #max value of 2^16 bits
     v_channel = raw_adc * 6.144 / 32768.0 # bits to volts conversion
     v_battery = v_channel * ADS1115["vDividerRatio"] # convert voltage divider voltage to battery voltage
+    # Compile states as array
+    state = np.array([[x],[y],[z],[roll],[pitch],[yaw],[dxdt],[dydt],[dzdt],[droll],[dpitch],[dyaw]])
+    dx = state - setpoint
     return state, dx, v_battery, cur_time, filter_states, yaw_looper, rawyaw
