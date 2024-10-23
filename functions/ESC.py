@@ -17,12 +17,18 @@ def init():
 def connectMotorsPigpio(pins, relay_pin):
     print("Connecting motors...")
     '''
-    This function automatically performs the ESC calibration procedure. 
-    First, power is disconnected from the motors, and the ESC PWM signals are set to high.
-    Then, power is connected, and the ESC PWM signals are set to low.
-    At this point, the ESCs should beep 4 times (depending on the model) 
+    This function is a little wonky, but it works so we're not changing it. 
+    Originally, the idea was to automatically perform the ESC calibration procedure. 
+    First, power would be disconnected from the motors, and the ESC PWM signals would be set to high.
+    Then, power would be connected, and the ESC PWM signals would be set to low.
+    At this point, the ESCs would beep 4 times (depending on the model) 
     to indicate the motors are calibrated and armed.
-    The operator provides verification via keystroke to complete the procedure.
+    
+    However, that procedure did not appear to work consistently. So now, power is applied first,
+    then the PWM values are set to low, and after a few seconds, we should hear the 4 beeps.
+    Most likely, this does not calibrate the ESCs, it only arms them.
+    Also, the code below clearly contains redunant lines. But again, it works, so we're not messing with it.
+    After the beeps, the operator provides verification via keystroke to complete the procedure.
     '''
 
     # Min and max pulsewidth values

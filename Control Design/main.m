@@ -3,20 +3,24 @@ clear
 
 %% Parameters
 p.g   = 9.81;       % gravitational constant, m/s^2
-p.m   = 0.9855;     % mass of drone, kg
+p.m   = 0.9445;     % mass of drone, kg
 p.l   = .23;        % distance between rotor and center of mass of quadcopter
 p.Ixx = 0.013022;   % moment of inertia around x axis, kg*m^2
 p.Iyy = 0.012568;   % moment of inertia around y axis, kg*m^2
 p.Izz = 0.021489;   % moment of inertia around z axis, kg*m^2
-p.k   = 1.24e-7;    % lift constant, N/rpm
-p.b   = 1.8e-9;        % drag constant, N/rpm
-p.rho = 7.77e7;     % rho = k_T/bR, where R is motor resistance, and k_T is torque constant
-p.pi  = 7.19e-4;    % pi = k_e/2, where k_e is back EMF gain
-p.vmax = 12;        % battery voltage
-p.min_PW  = 1100;
-p.max_PW  = 1900;
-p.min_omega = 0;
-p.max_omega = sqrt(p.rho*p.vmax/800*(p.max_PW-1100) + (p.rho*p.pi)^2) - p.rho*p.pi;
+p.k   = 1.29e-7;    % lift constant, N/rpm
+p.b   = 8.21e-9;        % drag constant, N/rpm
+p.kT  = 0.0108;     % torque coefficient of motor
+p.b   = 8.21e-9;    % drag coefficient of rotor
+p.R   = 0.17;       % motor resistance
+p.ke  = 0.000656;   % back EMF constant    
+p.vmax = 11.5;      % battery voltage (bit of a misnomer; it's the current battery voltage, not the max battery voltage)
+p.min_PW  = 1100;   % max pulsewidth signal
+p.max_PW  = 1900;   % min pulsewidth signal
+p.rho       = p.kT/(p.b*p.R);
+p.pi        = p.ke/2; 
+p.max_omega = sqrt(p.rho*p.vmax/800*(p.max_PW-1100) + (p.rho*p.pi)^2) - p.rho*p.pi; % max rotor speed
+p.min_omega = 0; % min rotor speed
 
 %% LQR Control Design
 xe = [0 0 .5 0 0 0 0 0 0 0 0 0];         % State equilibrium
@@ -30,7 +34,7 @@ save('Controllers/LQRcontroller','K','p','ue')
 
 %% Simulations
 tspan = [0 5];                                            % time range
-x0    = xe + [0 0 0 0 0 0 0 0 0 0 0 0];                % initial conditions
+x0    = xe + [0 0 .1 .1 .1 .1 0 0 0 0 0 0];                % initial conditions
 [t_lin, x_lin, u_lin, duty_lin] = LinearSim(tspan, xe', x0', A,B,K,p); % linear simulation
 [t_nl, x_nl, u_nl, duty_nl]     = nlSim(x0',tspan,K,ue,xe,p);        % nonlinear simulation
 

@@ -27,6 +27,7 @@ def init(calibrate):
     if calibrate: # Optional
         BNO.callibrateSensor(bno)
     print("Sensor callibrated!\n\n")
+    
     # Connect to Vicon
     vicon_client, mytracker = Vicon.connectVicon("192.168.0.101")
     object_name = "BridgemanDrone"
