@@ -48,7 +48,7 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
         feedbackparams = {
             "K_x"     : 0,
             "K_y"     : 0,
-            "K_z"     : 0,
+            "K_z"     : .1,
             "K_dx"    : 0,
             "K_dy"    : 0,
             "K_dz"    : 0,
