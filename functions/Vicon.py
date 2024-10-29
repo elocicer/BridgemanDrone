@@ -24,12 +24,8 @@ def GetLinearStates(tracker, object_name, prev_state):
         y = positions[2][0][3]/1000
         z = positions[2][0][4]/1000
     except:
-        print("Flag")
         x = prev_state[0][0]
         y = prev_state[1][0]
         z = prev_state[2][0]
-    print(x)
-    print(y)
-    print(z)
     return x, y, z
 
