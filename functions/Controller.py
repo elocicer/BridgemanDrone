@@ -19,9 +19,15 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
     target_height = .05 # 5cm or 0.05m
     setpoint = np.transpose(np.array([[x, y, z+target_height, 0, 0, yaw, 0, 0, 0, 0, 0, 0]])) #setting to zero roll pitch yaw
     # Initialize Vicon filter states and parameters
-    filter_states = [x, y, z, 0, 0, 0]
-    filterparams = {"Tx" : .1, "Ty" : .1, "Tz" : .1, "Tdx" : .25, "Tdy" : .25, "Tdz" : .25, 
-                    "Kx" : 1,  "Ky" : 1,  "Kz" : 1,  "Kdx" : 1,   "Kdy" : 1,   "Kdz" : 1}
+    filter_states = [x, y, z, roll, pitch, yaw 0, 0, 0, 0, 0, 0]
+    filterparams = {"Tx"     : .1,  "Ty"      : .1,  "Tz"    : .1,
+                    "Troll"  : .1,  "Tpitch"  : .1,  "Tyaw"  : .1,
+                    "Tdx"    : .25, "Tdy"     : .25, "Tdz"   : .25, 
+                    "Tdroll" : .25, "Tdpitch" : .25, "Tdyaw" : .25, 
+                    "Kx"     : 1,   "Ky"      : 1,   "Kz"    : 1, 
+                    "Kroll"  : 1,   "Kpitch"  : 1,   "Kyaw"  : 1,
+                    "Kdx"    : 1,   "Kdy"     : 1,   "Kdz"   : 1,
+                    "Kdroll" : 1,   "Kdpitch" : 1,   "Kdyaw" : 1,}
     # PWM motor parameters
     PWMparams = {"RbkT": 1.29e-7 , "ke": 0.000656} # RbkT refers to R*b/k_T.
     # Controller Parameters
