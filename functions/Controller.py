@@ -43,6 +43,8 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
         k = 1.29e-7 # rotor lift coefficient
         l = .23     # rotor distance from center of mass
         b = 8.21e-9 # rotor drag coefficient
+        g = 9.81    # gravity, m/s^2
+        m = 1.0855  # mass, kg (without mounting plate)
         feedbackparams = {
             "K_x"     : 0,
             "K_y"     : 0,
@@ -57,7 +59,7 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
             "K_dpitch": 7.5,
             "K_dyaw"  : .1, 
             "K_motor" : 0,
-            "mg"      : 13.52, #1.3785kg*9.81m/s^2 = 13.52N (with mounting plate)
+            "mg"      : m*g,
             "Gamma"   : np.linalg.inv(np.array([[k, k, k, k], [0, l*k, 0, -l*k], [l*k, 0, -l*k, 0], [-b, b, -b, b]])),
             "sinYawSet" : np.sin(setpoint[5])/9.81,
             "cosYawSet" : np.cos(setpoint[5])/9.81
