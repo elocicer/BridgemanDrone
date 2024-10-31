@@ -47,15 +47,17 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
         m_measured = 1.0855  # mass, kg, measured (without mounting plate)
         m_adjustment = .1 # heuristic adjustment to fix offset during free flight
         m = m_measured + m_adjustment
+        m_with_stand = 1.3 # mass with test stand
+        m = m_with_stand
         feedbackparams = {
-            "K_x"     : 1,
-            "K_y"     : 1,
-            "K_z"     : 0, #.25, #1.5
+            "K_x"     : 0,
+            "K_y"     : 0,
+            "K_z"     : 0,
             "K_dx"    : 0,
             "K_dy"    : 0,
             "K_dz"    : 0,
-            "K_roll"  : .7,
-            "K_pitch" : .7,
+            "K_roll"  : .8,
+            "K_pitch" : .8,
             "K_yaw"   : .1,
             "K_droll" : 7.5, #7.5
             "K_dpitch": 7.5,
