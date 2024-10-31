@@ -16,7 +16,7 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
     cur_time = time.time() 
     state = np.transpose(np.array([[x, y, z, roll, pitch, yaw, 0, 0, 0, droll, dpitch, dyaw]]))
     # Create Setpoint
-    target_height = .05 # 5cm or 0.05m
+    target_height = .2 # meters
     setpoint = np.transpose(np.array([[x, y, z+target_height, 0, 0, yaw, 0, 0, 0, 0, 0, 0]])) #setting to zero roll pitch yaw
     # Initialize Vicon filter states and parameters
     filter_states = [x, y, z, roll, pitch, yaw, 0, 0, 0, 0, 0, 0]
@@ -44,20 +44,22 @@ def init(bno, mytracker, object_name, CTRLR, error, mypi, pins, relay_pin):
         l = .23     # rotor distance from center of mass
         b = 8.21e-9 # rotor drag coefficient
         g = 9.81    # gravity, m/s^2
-        m = 1.0855  # mass, kg (without mounting plate)
+        m_measured = 1.0855  # mass, kg, measured (without mounting plate)
+        m_adjustment = .1 # heuristic adjustment to fix offset during free flight
+        m = m_measured + m_adjustment
         feedbackparams = {
-            "K_x"     : 0,
-            "K_y"     : 0,
-            "K_z"     : .1,
+            "K_x"     : 1,
+            "K_y"     : 1,
+            "K_z"     : 0, #.25, #1.5
             "K_dx"    : 0,
             "K_dy"    : 0,
             "K_dz"    : 0,
-            "K_roll"  : .9,
-            "K_pitch" : .9,
+            "K_roll"  : .7,
+            "K_pitch" : .7,
             "K_yaw"   : .1,
-            "K_droll" : 7.5,
+            "K_droll" : 7.5, #7.5
             "K_dpitch": 7.5,
-            "K_dyaw"  : .1, 
+            "K_dyaw"  : .1,
             "K_motor" : 0,
             "mg"      : m*g,
             "Gamma"   : np.linalg.inv(np.array([[k, k, k, k], [0, l*k, 0, -l*k], [l*k, 0, -l*k, 0], [-b, b, -b, b]])),
