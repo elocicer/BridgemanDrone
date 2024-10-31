@@ -17,10 +17,10 @@ def LQR(dx, v_battery, FBp, PWMp, mypi, pins):
 def PD(dx, v_battery, FBp, PWMp, mypi, pins):
     # based on Mahony2012 in IEEE Magazine
     try:
-        ddx_com = -FBp["K_x"]*dx[0] - FBp["K_dx"]*dx[6]
-        ddy_com = -FBp["K_y"]*dx[1] - FBp["K_dy"]*dx[7]
-        roll_com  = -.08 + ddx_com*FBp["sinYawSet"] - ddy_com*FBp["cosYawSet"]
-        pitch_com = -.04 + ddx_com*FBp["cosYawSet"] + ddy_com*FBp["sinYawSet"]
+        #ddx_com = -FBp["K_x"]*dx[0] - FBp["K_dx"]*dx[6]
+        #ddy_com = -FBp["K_y"]*dx[1] - FBp["K_dy"]*dx[7]
+        roll_com  = -.08 #+ ddx_com*FBp["sinYawSet"] - ddy_com*FBp["cosYawSet"]
+        pitch_com = -.04 #+ ddx_com*FBp["cosYawSet"] + ddy_com*FBp["sinYawSet"]
         Delta_roll  = dx[3] - roll_com
         Delta_pitch = dx[4] - pitch_com
         lift = FBp["mg"] - FBp["K_z"]*dx[2] - FBp["K_dz"]*dx[8]
