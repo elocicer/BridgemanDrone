@@ -1,0 +1,41 @@
+%%%%% This is a file for keeping your macros. Use them whenever possible, so you can change notation on-the-fly. This also helps you use notation more consistently. Annotate so that it is searchable when you inevitably forget the macro for something.
+
+%%%%% vectors, matrices, etc
+\newcommand{\Mat}[1]{\begin{bmatrix}#1\end{bmatrix}}	% Matrix detail
+\newcommand{\vect}[1]{\bm{\mathrm{#1}}}								% Vector, bolded
+\def\omat{\vect{0}} 	% zero matrix
+\def\ident{\vect{I}} 	% identity matrix
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\def\trans{\mathrm{T}}
+
+%%%%% For coloured writing, corrections
+\newcommand{\red}[1]{\textcolor{red}{#1}} % red writing
+
+%%%%% Environments
+\newcommand{\Item}[1]{\begin{itemize}#1\end{itemize}}			% Itemized list
+\newcommand{\Enum}[1]{\begin{enumerate}#1\end{enumerate}}	% Ennumerated list
+\newcommand{\aleq}[1]{\begin{align}#1\end{align}} 				% aligned equation, not numbered
+\newcommand{\aleqn}[1]{\begin{align*}#1\end{align*}} 			% aligned equation, numbered	
+
+%%%%%% Sets
+\def\IR{\mathbb R}					% Real #'s
+\def\IC{\mathbb C}					% Complex #'s
+\def\IZ{\mathbb Z}					% Integers
+\def\IN{\mathbb N}					% Natural #'s
+
+%%%%% References etc...
+\newcommand{\fref}[1]{Figure~\ref{#1}} 	% Reference figures
+\newcommand{\iref}[1]{Item~\ref{#1}} 		% Reference figures
+\newcommand{\tref}[1]{Table~\ref{#1}}		% Reference figures
+
+%%%%% theorems etc...
+\newtheorem{Asm}{Assumption}
+
+%%%%% Symbols
+\def\done{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} % checkmark
+
+%%%%% Signature line
+\def\SignatureAndDate{%
+    \par\noindent\makebox[1.5in]{\hrulefill} \hfill \makebox[2.5in]{\hrulefill} \hfill \makebox[2in]{\hrulefill}%
+    \par\noindent\makebox[1.5in]{Date (day/month/year)} \hfill \makebox[2.5in]{Signature} \hfill \makebox[2in]{Printed name}%
+}
